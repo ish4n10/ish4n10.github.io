@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html -%}
+  <body>
+    <div class="app-shell">
+      <aside class="app-sidebar">
+        <div class="sidebar-inner">
+          <a class="profile-link" href="{{ "/" | relative_url }}">
+            <div class="profile-avatar">I</div>
+            <div class="profile-meta">
+              <p class="profile-name">{{ site.author }}</p>
+              <p class="profile-title">{{ site.title }}</p>
+            </div>
+          </a>
+
+          <p class="profile-about">{{ site.description }}</p>
+
+          <nav class="sidebar-nav" aria-label="Primary">
+            <a href="{{ "/" | relative_url }}" class="{% if page.url == "/" %}is-active{% endif %}"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="{{ "/categories/" | relative_url }}" class="{% if page.url == "/categories/" %}is-active{% endif %}"><i class="fa-solid fa-bars"></i> Categories</a>
+            <a href="{{ "/tags/" | relative_url }}" class="{% if page.url == "/tags/" %}is-active{% endif %}"><i class="fa-solid fa-tags"></i> Tags</a>
+            <a href="{{ "/archives/" | relative_url }}" class="{% if page.url == "/archives/" %}is-active{% endif %}"><i class="fa-solid fa-box-archive"></i> Archives</a>
+            <a href="{{ "/about/" | relative_url }}" class="{% if page.url == "/about/" %}is-active{% endif %}"><i class="fa-solid fa-circle-info"></i> About</a>
+          </nav>
+
+          <div class="sidebar-social">
+            <a href="https://linkedin.com/in/ish4n10" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/ish4n10" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="mailto:ishan.tripathi010@gmail.com"><i class="fa-solid fa-envelope"></i> Gmail</a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="app-main">
+        <header class="topbar">
+          <div class="topbar-left">
+            {%- if page.url == "/" -%}
+              <span>Home</span>
+            {%- elsif page.title -%}
+              <a href="{{ "/" | relative_url }}">Home</a>
+              <span class="topbar-sep">/</span>
+              <span>{{ page.title }}</span>
+            {%- else -%}
+              <a href="{{ "/" | relative_url }}">Home</a>
+            {%- endif -%}
+          </div>
+
+          <div class="topbar-search">
+            <input id="site-search" type="search" placeholder="Search..." autocomplete="off">
+            <div id="search-results" class="search-results" hidden></div>
+          </div>
+        </header>
+
+        <div class="page-wrap">
+          {{ content }}
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        const searchInput = document.getElementById("site-search");
+        const resultsBox = document.getElementById("search-results");
+        if (!searchInput || !resultsBox) return;
+
+        const posts = [
+          {% for post in site.posts %}
+          {
+            title: {{ post.title | jsonify }},
+            url: {{ post.url | relative_url | jsonify }},
+            date: {{ post.date | date: "%b %-d, %Y" | jsonify }},
+            tags: {{ post.tags | join: ", " | jsonify }},
+            excerpt: {{ post.excerpt | strip_html | strip_newlines | truncate: 180 | jsonify }}
+          }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ];
+
+        function renderResults(items) {
+          if (!items.length) {
+            resultsBox.innerHTML = '<div class="search-empty">No results found.</div>';
+            resultsBox.hidden = false;
+            return;
+          }
+
+          resultsBox.innerHTML = items.slice(0, 8).map(function (p) {
+            return (
+              '<a class="search-item" href="' + p.url + '">' +
+                '<div class="search-title">' + p.title + '</div>' +
+                '<div class="search-meta">' + p.date + (p.tags ? ' • ' + p.tags : '') + '</div>' +
+              '</a>'
+            );
+          }).join("");
+          resultsBox.hidden = false;
+        }
+
+        searchInput.addEventListener("input", function () {
+          const q = searchInput.value.trim().toLowerCase();
+          if (!q) {
+            resultsBox.hidden = true;
+            resultsBox.innerHTML = "";
+            return;
+          }
+
+          const filtered = posts.filter(function (p) {
+            const hay = (p.title + " " + p.tags + " " + p.excerpt).toLowerCase();
+            return hay.includes(q);
+          });
+          renderResults(filtered);
+        });
+
+        document.addEventListener("click", function (e) {
+          if (!resultsBox.contains(e.target) && e.target !== searchInput) {
+            resultsBox.hidden = true;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

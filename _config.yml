@@ -1,0 +1,13 @@
+title: "Ishan's blog"
+author: "Ishan Tripathi"
+description: "Interested in Software Security and Machine Learning"
+baseurl: ""
+url: ""
+github_username: "ish4n10"
+
+theme: minima
+plugins:
+  - jekyll-feed
+
+sass:
+  quiet_deps: true

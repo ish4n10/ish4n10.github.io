@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+        <li class="post-card">
+          <h3 class="post-card-title">
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h3>
+
+          <p class="post-card-excerpt">
+            {{ post.excerpt | markdownify | strip_html | strip_newlines | truncate: 190 }}
+          </p>
+
+          <div class="post-card-meta">
+            <span class="meta-date">
+              <span class="meta-label">Date:</span>
+              {{ post.date | date: "%b %-d, %Y" }}
+            </span>
+
+            {%- if post.tags and post.tags.size > 0 -%}
+              {%- for tag in post.tags -%}
+                <span class="meta-tag">
+                  <span class="meta-label">Tag:</span>
+                  {{ tag }}
+                </span>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
