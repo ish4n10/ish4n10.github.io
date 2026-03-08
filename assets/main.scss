@@ -3,17 +3,17 @@
 
 :root {
   /* Matched from blog.washi.dev dark Chirpy tokens */
-  --bg: rgb(27 27 30);
+  --bg: rgb(27, 27, 30);
   --bg-elev: #1e1e1e;
   --panel: #1e1e1e;
   --panel-2: #292929;
-  --text: rgb(175 176 177);
+  --text: rgb(175, 176, 177);
   --muted: #868686;
-  --accent: rgb(138 180 248);
-  --accent-2: rgb(255 255 255 / 95%);
-  --line: rgb(44 45 45);
+  --accent: rgb(138, 180, 248);
+  --accent-2: rgba(255, 255, 255, 0.95);
+  --line: rgb(44, 45, 45);
   --code-bg: #151515;
-  --shadow: rgb(21 21 21 / 72%) 0 6px 18px 0, rgb(137 135 135 / 24%) 0 0 0 1px;
+  --shadow: rgba(21, 21, 21, 0.72) 0 6px 18px 0, rgba(137, 135, 135, 0.24) 0 0 0 1px;
 }
 
 * {
@@ -444,7 +444,7 @@ a:hover {
 .post-content :not(pre) > code {
   padding: 0.1rem 0.35rem;
   border-radius: 5px;
-  background: rgb(255 255 255 / 5%);
+  background: rgba(255, 255, 255, 0.05);
   color: #b0b0b0;
 }
 
