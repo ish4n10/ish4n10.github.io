@@ -163,6 +163,29 @@ a:hover {
   padding: 0 2rem 1.8rem;
 }
 
+.mobile-topbar {
+  display: none;
+}
+
+.mobile-icon-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.05rem;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-title {
+  color: #c7ccdd;
+  font-size: 1.95rem;
+  letter-spacing: -0.01em;
+  opacity: 0.75;
+}
+
 .page-wrap {
   max-width: 880px;
   margin: 1.2rem auto 0;
@@ -200,6 +223,10 @@ a:hover {
 .topbar-search {
   position: relative;
   width: min(380px, 100%);
+}
+
+.sidebar-backdrop {
+  display: none;
 }
 
 #site-search {
@@ -655,14 +682,23 @@ mjx-container[jax="CHTML"] {
   }
 
   .app-sidebar {
-    position: relative;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: min(84vw, 360px);
+    height: 100vh;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+    transform: translateX(-102%);
+    transition: transform 0.24s ease;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
   }
 
   .sidebar-inner {
-    padding: 1rem;
+    padding: 1rem 0.95rem 1.2rem;
+    overflow-y: auto;
+    height: 100%;
   }
 
   .app-main {
@@ -670,15 +706,45 @@ mjx-container[jax="CHTML"] {
   }
 
   .topbar {
-    min-height: 60px;
+    display: none;
   }
 
-  .topbar-search {
-    width: min(250px, 100%);
+  .mobile-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: rgba(17, 17, 23, 0.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+    padding: 0 0.2rem;
   }
 
-  #site-search {
-    font-size: 0.92rem;
-    padding: 0.54rem 0.8rem;
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    background: rgba(0, 0, 0, 0.48);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+
+  body.sidebar-open .app-sidebar {
+    transform: translateX(0);
+  }
+
+  body.sidebar-open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .page-wrap {
+    margin-top: 0.8rem;
   }
 }

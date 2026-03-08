@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
   {%- include head.html -%}
-  <body>
+  <body class="layout-{{ page.layout }}">
     <div class="app-shell">
       <aside class="app-sidebar">
         <div class="sidebar-inner">
@@ -30,8 +30,20 @@
           </div>
         </div>
       </aside>
+      <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
 
       <main class="app-main">
+        <header class="mobile-topbar">
+          <button id="sidebar-toggle" class="mobile-icon-btn" aria-label="Open menu" type="button">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <span class="mobile-title">{{ page.title | default: "Home" }}</span>
+          <button class="mobile-icon-btn mobile-search-btn" aria-label="Search" type="button" onclick="document.getElementById('site-search') && document.getElementById('site-search').focus();">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </header>
+
+        {%- unless page.layout == "post" -%}
         <header class="topbar">
           <div class="topbar-left">
             {%- if page.url == "/" -%}
@@ -50,6 +62,7 @@
             <div id="search-results" class="search-results" hidden></div>
           </div>
         </header>
+        {%- endunless -%}
 
         <div class="page-wrap">
           {{ content }}
@@ -86,7 +99,7 @@
             return (
               '<a class="search-item" href="' + p.url + '">' +
                 '<div class="search-title">' + p.title + '</div>' +
-                '<div class="search-meta">' + p.date + (p.tags ? ' • ' + p.tags : '') + '</div>' +
+                '<div class="search-meta">' + p.date + (p.tags ? ' | ' + p.tags : '') + '</div>' +
               '</a>'
             );
           }).join("");
@@ -112,6 +125,27 @@
           if (!resultsBox.contains(e.target) && e.target !== searchInput) {
             resultsBox.hidden = true;
           }
+        });
+      })();
+
+      (function () {
+        const body = document.body;
+        const toggle = document.getElementById("sidebar-toggle");
+        const backdrop = document.getElementById("sidebar-backdrop");
+        if (!toggle || !backdrop) return;
+
+        function closeSidebar() {
+          body.classList.remove("sidebar-open");
+        }
+
+        toggle.addEventListener("click", function () {
+          body.classList.toggle("sidebar-open");
+        });
+
+        backdrop.addEventListener("click", closeSidebar);
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeSidebar();
         });
       })();
     </script>
