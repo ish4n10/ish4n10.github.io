@@ -724,6 +724,11 @@ mjx-container[jax="CHTML"] {
     padding: 0 0.2rem;
   }
 
+  body.layout-post .mobile-topbar {
+    position: relative;
+    top: auto;
+  }
+
   .sidebar-backdrop {
     display: block;
     position: fixed;
