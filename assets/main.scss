@@ -725,7 +725,32 @@ mjx-container[jax="CHTML"] {
   }
 
   body.layout-post .mobile-topbar {
+    display: flex;
+    position: fixed;
+    top: 0.45rem;
+    left: 0.45rem;
+    right: auto;
+    min-height: auto;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    z-index: 60;
+  }
+
+  body.layout-post .mobile-title,
+  body.layout-post .mobile-search-btn {
     display: none;
+  }
+
+  body.layout-post .mobile-icon-btn {
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: rgba(27, 27, 30, 0.9);
+    color: #d2d7e3;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   }
 
   .sidebar-backdrop {
