@@ -725,8 +725,7 @@ mjx-container[jax="CHTML"] {
   }
 
   body.layout-post .mobile-topbar {
-    position: relative;
-    top: auto;
+    display: none;
   }
 
   .sidebar-backdrop {

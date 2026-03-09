@@ -215,11 +215,7 @@ The dim=-1 means the last dimension, here it is d\_model. As we want to normaliz
 
 ### Rotary Positional Embeddings
 
-We already covered what it is -
-
-A rotation matrix is just -
-
-![](https://cdn.hashnode.com/uploads/covers/67f29eb39a2e108cdae12adb/367fa97d-020f-4076-a914-a6ca964870b6.png align="center")
+We already covered what it is in the above section.
 
 Now applying this to a vector of **d\_k** dimensions, we can't rotate all 64 at once as rotation is a 2D operation. In RoPE, we pair up dimensions and rotate each pair independently by its own angle.
 
