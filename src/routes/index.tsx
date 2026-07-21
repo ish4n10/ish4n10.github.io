@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Github, Linkedin, Mail, Moon, Sun } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { POSTS } from "@/lib/posts";
 import {
@@ -58,6 +58,7 @@ function SectionHeader({
 function Index() {
   const darkRef = useRef(false);
   const [, forceRender] = useState(0);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -97,7 +98,15 @@ function Index() {
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={() => setMobileMenu(true)}
+              className="p-2 text-foreground hover:text-accent transition-colors sm:hidden"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
             <button
               type="button"
               data-cursor="call"
@@ -125,6 +134,57 @@ function Index() {
           </div>
         </div>
       </header>
+
+      {/* Mobile side panel */}
+      <div
+        className={`fixed inset-0 z-50 transition-opacity duration-300 sm:hidden ${
+          mobileMenu ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setMobileMenu(false)}
+      >
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+      <div
+        className={`fixed right-0 top-0 z-50 h-full w-64 border-l border-border bg-background transition-transform duration-300 sm:hidden ${
+          mobileMenu ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-border px-4 py-3">
+          <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            .symtab
+          </span>
+          <button
+            type="button"
+            onClick={() => setMobileMenu(false)}
+            className="p-1 text-foreground hover:text-accent transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <nav className="px-4 py-6">
+          <ul className="space-y-1">
+            {NAV.map((n) => (
+              <li key={n.href}>
+                <a
+                  href={n.href}
+                  onClick={() => setMobileMenu(false)}
+                  data-cursor={
+                    n.label === "about" ? ".about" :
+                    n.label === "work" ? "trace()" :
+                    n.label === "writing" ? "objdump" :
+                    n.label === "contact" ? ".contact" : undefined
+                  }
+                  className="text-mono flex items-baseline gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  <span className="opacity-50">{n.addr}</span>
+                  <span>{n.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
 
       <main id="top" className="mx-auto max-w-5xl px-6">
         {/* Hero — framed as an ELF-style header block */}
