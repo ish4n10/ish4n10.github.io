@@ -39,6 +39,7 @@ export default defineConfig(async (env) => {
       tailwindcss(),
       tsConfigPaths({ projects: ["./tsconfig.json"] }),
       tanstackStart({
+        spa: { enabled: true },
         importProtection: {
           behavior: "error",
           client: { files: ["**/server/**"], specifiers: ["server-only"] },
