@@ -90,6 +90,7 @@ function PostPage() {
           <div className="flex items-center gap-4">
             <button
               type="button"
+              data-cursor="call"
               onClick={() => {
                 const next = !darkRef.current;
                 darkRef.current = next;
@@ -105,6 +106,7 @@ function PostPage() {
             <Link
               to="/"
               hash="writing"
+              data-cursor="ret"
               className="text-mono text-muted-foreground hover:text-foreground"
             >
               &larr; .text index
@@ -128,6 +130,7 @@ function PostPage() {
                     <Link
                       to="/writing/$slug"
                       params={{ slug: p.slug }}
+                      data-cursor="objdump"
                       className={`group flex flex-col gap-0.5 rounded-md px-3 py-2 text-sm transition-colors ${
                         active
                           ? "bg-accent/10 text-accent"
@@ -222,15 +225,16 @@ function PostPage() {
                 </Link>
                 <div className="text-mono flex flex-wrap gap-4 opacity-70">
                   {POSTS.filter((p) => p.slug !== post.slug).map((p) => (
-                    <Link
-                      key={p.slug}
-                      to="/writing/$slug"
-                      params={{ slug: p.slug }}
-                      className="inline-flex items-center gap-1 hover:text-accent"
-                    >
-                      {p.title}
-                      <ArrowUpRight className="h-3 w-3" />
-                    </Link>
+                      <Link
+                        key={p.slug}
+                        to="/writing/$slug"
+                        params={{ slug: p.slug }}
+                        data-cursor="objdump"
+                        className="inline-flex items-center gap-1 hover:text-accent"
+                      >
+                        {p.title}
+                        <ArrowUpRight className="h-3 w-3" />
+                      </Link>
                   ))}
                 </div>
               </div>

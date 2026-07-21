@@ -84,6 +84,12 @@ function Index() {
               <a
                 key={n.href}
                 href={n.href}
+                data-cursor={
+                  n.label === "about" ? ".about" :
+                  n.label === "work" ? "trace()" :
+                  n.label === "writing" ? "objdump" :
+                  n.label === "contact" ? ".contact" : undefined
+                }
                 className="text-mono flex items-baseline gap-1 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <span className="opacity-50">{n.addr}</span>
@@ -94,6 +100,7 @@ function Index() {
           <div className="flex items-center gap-3">
             <button
               type="button"
+              data-cursor="call"
               onClick={() => {
                 const next = !darkRef.current;
                 darkRef.current = next;
@@ -110,6 +117,7 @@ function Index() {
               href="https://github.com/ish4n10"
               target="_blank"
               rel="noreferrer"
+              data-cursor="git push"
               className="text-mono inline-flex items-center gap-1 text-foreground hover:text-accent"
             >
               ish4n10 <ArrowUpRight className="h-3 w-3" />
@@ -272,6 +280,7 @@ function Index() {
                     href={p.href}
                     target="_blank"
                     rel="noreferrer"
+                    data-cursor={p.name}
                     className="group block py-6"
                   >
                     <div className="grid grid-cols-12 items-baseline gap-3">
@@ -327,6 +336,7 @@ function Index() {
                 key={p.slug}
                 to="/writing/$slug"
                 params={{ slug: p.slug }}
+                data-cursor="objdump"
                 className="group block border border-border bg-card transition-colors hover:border-accent"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/60 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">

@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { type ReactNode } from "react";
+import { CursorOverlay } from "../components/cursor-overlay";
 
 import appCss from "../styles.css?url";
 function NotFoundComponent() {
@@ -72,14 +73,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ishaan — Deeptech, AI & Low-level Security" },
+      { title: "Ishan — Deeptech, AI & Low-level Security" },
       {
         name: "description",
         content:
-          "Personal site of Ishaan (ish4n10). Notes and work on deeptech, AI systems, and low-level security.",
+          "Personal site of Ishan (ish4n10). Notes and work on deeptech, AI systems, and low-level security.",
       },
-      { name: "author", content: "Ishaan" },
-      { property: "og:title", content: "Ishaan — Deeptech, AI & Low-level Security" },
+      { name: "author", content: "Ishan" },
+      { property: "og:title", content: "Ishan — Deeptech, AI & Low-level Security" },
       {
         property: "og:description",
         content:
@@ -93,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/image.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -133,6 +134,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <CursorOverlay />
     </QueryClientProvider>
   );
 }
