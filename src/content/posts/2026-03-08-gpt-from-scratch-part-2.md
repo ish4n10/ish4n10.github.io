@@ -73,19 +73,6 @@ def get_lr(step: int) -> float:
 @torch.no_grad()
 def eval_loss(model, val_data, eval_steps=50):
     model.eval()
-    losses = [
-        F.cross_entropy(
-            model(x := get_batch(val_data, BATCH_SIZE, cfg.seq_len, DEVICE)[0]).view(-1, cfg.vocab_size),
-            get_batch(val_data, BATCH_SIZE, cfg.seq_len, DEVICE)[1].view(-1)
-        ).item()
-        for _ in range(eval_steps)
-    ]
-    model.train()
-    return sum(losses) / len(losses)
-
-@torch.no_grad()
-def eval_loss(model, val_data, eval_steps=50):
-    model.eval()
     losses = []
     for _ in range(eval_steps):
         x, y = get_batch(val_data, BATCH_SIZE, cfg.seq_len, DEVICE)
