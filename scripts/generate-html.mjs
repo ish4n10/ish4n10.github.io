@@ -22,7 +22,7 @@ if (fs.existsSync(shellFile)) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ishan — Deeptech, AI & Low-level Security</title>
+    <title>Ishan Tripathi | Research & Insights</title>
     <meta name="description" content="Personal site of Ishan (ish4n10). Notes and work on deeptech, AI systems, and low-level security." />
   </head>
   <body>

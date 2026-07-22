@@ -73,14 +73,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ishan — Deeptech, AI & Low-level Security" },
+      { title: "Ishan Tripathi | Research & Insights" },
       {
         name: "description",
         content:
           "Personal site of Ishan (ish4n10). Notes and work on deeptech, AI systems, and low-level security.",
       },
       { name: "author", content: "Ishan" },
-      { property: "og:title", content: "Ishan — Deeptech, AI & Low-level Security" },
+      { property: "og:title", content: "Ishan Tripathi | Research & Insights" },
       {
         property: "og:description",
         content:
